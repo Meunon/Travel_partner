@@ -6,7 +6,7 @@ import requests
 app = Flask(__name__)
 
 # OpenWeatherMap API 키
-weather_api_key = '37adc8129abdd68ca2d674bd5ca9c522'
+weather_api_key = 'OepnWeatherMap api key'
 
 # 지역 정보와 해당 지역의 좌표를 딕셔너리로 정의
 locations = {
