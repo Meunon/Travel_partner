@@ -1,0 +1,58 @@
+<!-- templates/weather.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ location }} Weather</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            color: black;  /* 글씨 색을 검은색으로 변경 */
+            font-family: 'Arial', sans-serif;
+            background-image: url('/static/background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;  /* 배경 고정 */
+            text-align: center;
+        }
+        
+        h1 {
+            font-size: 50pt;
+            margin-top: 50px;
+        }
+        
+        p, a {
+            font-size: 25pt;
+            margin: 0;
+            color: black;  /* 글씨 색을 검은색으로 변경 */
+        }
+
+        #back-to-map, #back-to-advice {
+            display: block;
+            margin: 20px auto;  /* 중앙 정렬 */
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 25pt;  /* 버튼 크기 조정 */
+        }
+    </style>
+</head>
+
+<body>
+    <h1>{{ location }} 날씨 정보</h1>
+    <p>날씨 상태: {{ weather_status }}</p>
+    <p>기온: {{ temperature }} °C</p>
+    <p>습도: {{ humidity }}%</p>
+    <p>강수량: {{ precipitation }} mm</p>
+    <a href="/travel_advice/{{ location }}"><button id="back-to-advice">놀거리</button></a>
+    <a href="/"><button id="back-to-map">지도로 돌아가기</button></a>
+</body>
+
+</html>

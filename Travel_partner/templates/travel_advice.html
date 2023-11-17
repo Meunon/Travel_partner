@@ -1,0 +1,66 @@
+<!-- templates/travel_advice.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ location }} 여행 조언</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            color: black;  /* 글씨 색을 검은색으로 변경 */
+            font-family: 'Arial', sans-serif;
+            background-image: url('/static/background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;  /* 배경 고정 */
+            text-align: center;
+        }
+
+        h1 {
+            font-size: 50pt;
+            margin-top: 50px;
+        }
+
+        h2, li {
+            font-size: 25pt;
+            margin: 0;
+            color: black;  /* 글씨 색을 검은색으로 변경 */
+        }
+
+        #back-to-map, #back-to-weather {
+            display: block;
+            margin: 20px auto;  /* 중앙 정렬 */
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 20pt;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>{{ location }} 여행 조언</h1>
+    <h2>관광지</h2>
+    <ul>
+        {% for attraction in travel_advice_data['tourist_attractions'] %}
+            <li>{{ attraction }}</li>
+        {% endfor %}
+    </ul>
+    <h2>축제 일정</h2>
+    <ul>
+        {% for festival_schedule in travel_advice_data['festivals_schedule'] %}
+            <li>{{ festival_schedule }}</li>
+        {% endfor %}
+    </ul>
+    <a href="/weather/{{ location }}"><button id="back-to-weather">날씨 확인</button></a>
+    <a href="/"><button id="back-to-map">지도로 돌아가기</button></a> 
+</body>
+
+</html>

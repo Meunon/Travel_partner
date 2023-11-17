@@ -1,0 +1,106 @@
+<!-- templates/index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>너 여행 갈 때 뭐보니</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='leaflet/leaflet.css') }}" />
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            color: white;
+            font-family: 'Arial', sans-serif;
+            background-image: url('/static/background.jpg');
+            background-size: cover;
+            background-position: center;
+            text-align: center;
+        }
+        h1 {
+            margin-top: 50px;
+            font-size: 3em;
+        }
+        #map-container {
+            width: 60%;
+            margin: 0 auto;
+            overflow: hidden;
+        }
+        #map {
+            height: 80vh;
+        }
+        #info-container {
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 10px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+        #advice-button {
+            display: block;
+            margin-top: 20px;
+            padding: 10px;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.2em;
+        }
+    </style>
+</head>
+<body>
+    <h1>너 여행 갈 때 뭐보니</h1>
+    <div id="map-container">
+        <div id="map"></div>
+    </div>
+    <div id="info-container">
+        <h2 id="location-title"></h2>
+    </div>
+    <script src="{{ url_for('static', filename='leaflet/leaflet.js') }}"></script>
+    <script>
+        function initMap() {
+            const map = L.map('map').setView([36.5, 127.5], 7);
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
+
+            const locations = {
+                '서울': { lat: 37.5665, lon: 126.9780 },
+                '부산': { lat: 35.1796, lon: 129.0756 },
+                '인천': { lat: 37.4563, lon: 126.7052 },
+                '제주': { lat: 33.4996, lon: 126.5312 },
+                '경주': { lat: 35.8563, lon: 129.2245 },
+                '대전': { lat: 36.3504, lon: 127.3845 },
+                '광주': { lat: 35.1595, lon: 126.8526 },
+                '울산': { lat: 35.5384, lon: 129.3114 },
+                '수원': { lat: 37.2636, lon: 127.0286 },
+            };
+
+            for (const [location, coords] of Object.entries(locations)) {
+                const marker = L.marker([coords.lat, coords.lon], { icon: getWeatherIcon() }).addTo(map);
+                marker.bindPopup(`<div id="popup-${location}"><strong>${location}</strong><br><button onclick="showAdvice('${location}')">놀거리</button><br><button onclick="checkWeather('${location}')">날씨 확인</button></div>`).openPopup();
+            }
+        }
+
+        function checkWeather(location) {
+            window.location.href = `/weather/${location}`;
+        }
+
+        function showAdvice(location) {
+            window.location.href = `/travel_advice/${location}`;
+        }
+
+        function getWeatherIcon() {
+            return L.icon({
+                iconUrl: 'static/leaflet/images/marker-icon.png',
+                iconSize: [25, 41],
+                iconAnchor: [12, 41],
+                popupAnchor: [1, -34],
+                shadowSize: [41, 41],
+            });
+        }
+    </script>
+    <script>
+        initMap();
+    </script>
+</body>
+</html>
